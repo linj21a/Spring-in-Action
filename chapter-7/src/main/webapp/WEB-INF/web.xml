@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<!--&lt;!&ndash;  设置根上下文的配置类实现&ndash;&gt;-->
+<!--  <context-param>-->
+<!--    <param-name>contextClass</param-name>-->
+<!--    &lt;!&ndash;    使用一个AnnotationConfigWebApplicationContext实现类， 配置类&ndash;&gt;-->
+<!--    <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>-->
+<!--  </context-param>-->
+
+<!--    &lt;!&ndash;  设置根配置类&ndash;&gt;-->
+<!--  <context-param>-->
+<!--    <param-name>contextConfigLocation</param-name>-->
+<!--      &lt;!&ndash;    使用根配置类&ndash;&gt;-->
+<!--    <param-value>FirthDay.Spittr.config.RootConfig</param-value>-->
+<!--  </context-param>-->
+
+<!--&lt;!&ndash;  设置ContextLoaderListener 监听器&ndash;&gt;-->
+<!--  <listener>-->
+<!--    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
+<!--  </listener>-->
+
+<!--&lt;!&ndash;  配置转发器 DispatcherServlet&ndash;&gt;-->
+<!--  <servlet>-->
+<!--    <servlet-name>appServlet</servlet-name>-->
+<!--    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+<!--    <init-param>-->
+<!--      <param-name>contextClass</param-name>-->
+<!--      <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>-->
+<!--    </init-param>-->
+<!--          &lt;!&ndash;    指定转发器的配置类&ndash;&gt;-->
+<!--    <init-param>-->
+<!--      <param-name>contextConfigLocation</param-name>-->
+<!--      <param-value>FirthDay.Spittr.config.WebConfig</param-value>-->
+<!--    </init-param>-->
+<!--          &lt;!&ndash;    在访问时才创建&ndash;&gt;-->
+<!--    <load-on-startup>1</load-on-startup>-->
+<!--  </servlet>-->
+<!--&lt;!&ndash;  设置转发器的路径映射&ndash;&gt;-->
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>appServlet</servlet-name>-->
+<!--    <url-pattern>/</url-pattern>-->
+<!--  </servlet-mapping>-->
+</web-app>

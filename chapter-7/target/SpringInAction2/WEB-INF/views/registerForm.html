@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+  <meta charset="UTF-8">
+  <title>Spitter</title>
+  <link rel="stylesheet" type="text/css"
+        th:href="@{/resources/style.css}"/>
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="page :: header"></div>
+
+<!--正文-->
+<div id="content">
+  <h1>Register</h1>
+  <form method="POST" th:object="${spitterForm}" enctype="multipart/form-data">
+    <!-- 展示错误 使用计算表达式 -->
+    <div class="errors" th:if="${#fields.hasErrors('*')}">
+      <ul>
+        <!-- 每次迭代，将当前错误设置到err变量中，使用${err}来获取其值 -->
+        <li th:each="err : ${#fields.errors('*')}"
+            th:text="${err}">Input is incorrect</li>
+      </ul>
+    </div>
+    <!-- 使用th:class 校验，有错，class添加error属性-->
+    <label th:class="${#fields.hasErrors('firstName')}? 'error'">&nbsp;&nbsp;姓&nbsp;&nbsp;</label>:
+    <input type="text" th:field="*{firstName}"
+           th:class="${#fields.hasErrors('firstName')}? 'error'" /><br/>
+    <label th:class="${#fields.hasErrors('lastName')}? 'error'">&nbsp;&nbsp;名&nbsp;&nbsp;</label>:
+    <input type="text" th:field="*{lastName}"
+           th:class="${#fields.hasErrors('lastName')}? 'error'" /><br/>
+    <label th:class="${#fields.hasErrors('email')}? 'error'">邮&nbsp;&nbsp;箱</label>:
+    <input type="text" th:field="*{email}"
+           th:class="${#fields.hasErrors('email')}? 'error'" /><br/>
+    <label th:class="${#fields.hasErrors('username')}? 'error'">用户名</label>:
+    <input type="text" th:field="*{username}"
+           th:class="${#fields.hasErrors('username')}? 'error'" /><br/>
+    <label th:class="${#fields.hasErrors('password')}? 'error'">密&nbsp;&nbsp;&nbsp;码</label>:
+    <input type="password" th:field="*{password}"
+           th:class="${#fields.hasErrors('password')}? 'error'" /><br/>
+<!--    添加一个上传文件的输入框 -->
+    <label>我的头像</label>:
+    <input type="file" name="profilePicture" accept="image/jpeg,image/png,image/gif" /><br/>
+    <input type="submit" value="Register" />
+
+  </form>
+</div>
+<!-- 尾部 -->
+<div id="footer" th:include="page :: copy"></div>
+</body>
+</html>

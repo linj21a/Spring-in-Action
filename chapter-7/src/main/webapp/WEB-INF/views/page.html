@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+<!-- 头页面部分 th:fragment指定 header -->
+<div th:fragment="header">
+  <a th:href="@{/}">
+    <img th:src="@{/resources/images/spitter_logo_50.png}" border="0"  alt="#"/></a>
+</div>
+
+<div>Content goes here</div>
+<!-- 指定尾部部分 -->
+<div th:fragment="copy">Copyright &copy; Craig Walls</div>
+</body>
+
+</html>
