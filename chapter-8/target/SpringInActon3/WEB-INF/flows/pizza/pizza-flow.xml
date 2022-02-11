@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+      http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+    start-state="identifyCustomer">
+<!--    流程入口：需要一个order类型的实例变量 -->
+    <var name="order" class="org.yuyefanhua.pizza.domain.Order"/>
+<!--    子流程：用户识别 当触发用户识别就绪，转到下一个状态创建订单 -->
+<!--    触发的函数customerReady位于 subflow=pizza/customer里面-->
+    <subflow-state id="identifyCustomer" subflow="pizza/customer">
+        <output name="customer" value="order.customer"/>
+<!--        上一个状态需要用户认证完毕触发用户已准备好  下一个状态是构建订单-->
+        <transition on="customerReady" to="buildOrder"/>
+    </subflow-state>
+<!--    子流程：构建订单，触发创建订单时将转移到下一个状态：支付信息确认-->
+<!--    触发的函数orderCreated位于 subflow=pizza/order里面 -->
+    <subflow-state id="buildOrder" subflow="pizza/order">
+        <input name="order" value="order"/>
+<!--        上一个状态需要触发创建订单  下一个状态是获取支付信息-->
+        <transition on="orderCreated" to="takePayment"/>
+    </subflow-state>
+<!--    子流程：用户支付信息确认  触发paymentTaken则跳到下一个状态 保存订单 -->
+<!--    触发的函数paymentTaken位于 subflow=pizza/payment里面-->
+    <subflow-state id="takePayment" subflow="pizza/payment">
+        <input name="order" value="order"/>
+        <transition on="paymentTaken" to="saveOrder"/>
+    </subflow-state>
+<!--    行为状态：保存订单  最后默认转到tankCustomer状态 -->
+    <action-state id="saveOrder">
+<!--        使用SpEL表达式来进行评估-->
+        <evaluate expression="pizzaFlowActions.saveOrder(order)"/>
+        <transition to="thankCustomer"/>
+    </action-state>
+<!--    视图状态：感谢客户 之后退出流程 -->
+    <view-state id="thankCustomer">
+        <transition to="endState"/>
+    </view-state>
+<!--    最后的状态：流程退出 -->
+    <end-state id="endState"/>
+    <global-transitions>
+<!--        每个流程都要支持的转移：全局取消转移-->
+        <transition on="cancel" to="endState"/>
+    </global-transitions>
+</flow>

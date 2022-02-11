@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/webflow-config
+   http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.3.xsd
+   http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    <context:component-scan base-package="org.yuyefanhua.pizza.flow" />
+    <!-- 流程执行器 ：是流程创建和执行的起点 -->
+    <webflow:flow-executor id="flowExecutor" />
+    <!-- 转发请求映射 从流程到具体的句柄实现 FlowHandler-->
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+        <property name="flowRegistry" ref="flowRegistry" />
+    </bean>
+    <!--主要工作就是负责将url转化成逻辑视图交给视图解析器解析 → jsp-->
+<!--    <bean id="flowController" class="org.springframework.webflow.mvc.servlet.FlowController">-->
+<!--        <property name="flowExecutor" ref="flowExecutor" />-->
+<!--    </bean>-->
+    <!--#####################-->
+    <!--    构建flow服务-->
+    <webflow:flow-builder-services id="flowBuilderServices"
+                                   view-factory-creator="mvcViewFactoryCreator"/>
+    <!--    构建flow服务需要一个视图解析器工厂-->
+    <bean id="mvcViewFactoryCreator"
+          class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+        <!--    该工厂需要一个解析器：我们在mvc.xml里面配合了解析器 id=viewResolver    -->
+        <property name="viewResolvers" ref="viewResolver"/>
+    </bean>
+    <!--#####################-->
+    <!-- 注册流程执行器，value写明了它要解析的流程的文件位置 格式 xxx-flow.xml -->
+    <!--将请求路径映射到flowRegistry中的流程中-->
+    <webflow:flow-registry id="flowRegistry" base-path="/WEB-INF/flows">
+        <webflow:flow-location-pattern value="/**/*-flow.xml" />
+    </webflow:flow-registry>
+    <!--#####################-->
+    <!--    FlowHandlerAdapter 等同于 Spring MVC 的控制器，它会响应发送的流程请求并对其进行处理。-->
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+        <property name="flowExecutor" ref="flowExecutor" />
+    </bean>
+</beans>

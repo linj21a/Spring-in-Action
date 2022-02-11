@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+      http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+<!--   需要一个order订单实例作为输入-->
+    <input name="order" required="true"/>
+<!--    展示一个支付视图， 它绑定到takePayment.jsp
+    该视图里面的支付信息表单绑定到流程作用域内的paymentDetails实例
+    -->
+    <view-state id="takePayment" model="flowScope.paymentDetails" view="/WEB-INF/flows/pizza/payment/takePayment.jsp">
+        <on-entry>
+<!--            创建一个paymentDetails实例变量放到流程作用域-->
+            <set name="flowScope.paymentDetails"
+                 value="new org.yuyefanhua.pizza.domain.PaymentDetails()"/>
+<!--            创建一个支付选项类型放到视图作用域-->
+            <evaluate result="viewScope.paymentTypeList"
+                      expression="T(org.yuyefanhua.pizza.domain.PaymentType).asList()"/>
+        </on-entry>
+<!--        提交支付  需要转入到验证支付信息是否有效的状态-->
+        <transition on="paymentSubmitted" to="verifyPayment"/>
+        <transition on="cancel" to="cancel"/>
+    </view-state>
+<!--    认证支付是否有效：-->
+    <action-state id="verifyPayment">
+        <evaluate result="order.payment"
+                  expression="pizzaFlowActions.verifyPayment(flowScope.paymentDetails)"/>
+<!--        成功支付则转到完成支付状态-->
+        <transition to="paymentTaken"/>
+    </action-state>
+<!--    取消支付-->
+    <end-state id="cancel"/>
+<!--    支付完成状态-->
+    <end-state id="paymentTaken"/>
+
+</flow>

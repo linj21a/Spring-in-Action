@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+    <var name="customer" class="org.yuyefanhua.pizza.domain.Customer"/>
+<!--    使用input设置一个order变量-->
+<!--    <input name="order" required="true"/>-->
+<!--    结合viewResolver共同确定视图位 -->
+    <view-state id="welcome">
+<!--        有电话进来时触发 查找客户-->
+        <transition on="phoneEntered" to="lookupCustomer"/>
+    </view-state>
+<!--    根据电话查找顾客 -->
+    <action-state id="lookupCustomer">
+        <evaluate result="customer"
+                  expression="pizzaFlowActions.lookupCustomer(requestParameters.phoneNumber)"/>
+<!--        如果上面的方法抛出异常，说明顾客找不到则要注册-->
+        <transition to="registrationForm" on-exception=
+                "org.yuyefanhua.pizza.service.CustomerNotFoundException"/>
+<!--        默认进入顾客准备好的状态-->
+        <transition to="customerReady"/>
+    </action-state>
+<!--    注册新顾客-->
+    <view-state id="registrationForm" model="customer" popup="true">
+        <on-entry>
+            <evaluate expression="customer.phoneNumber = requestParameters.phoneNumber"/>
+        </on-entry>
+        <transition on="submit" to="checkDeliveryArea"/>
+    </view-state>
+<!--    决策状态，检查配送的区域是否有效-->
+    <decision-state id="checkDeliveryArea">
+<!--        测试通过即有效，转到添加用户，反之给予警告表明不支持配送需要上门取-->
+        <if test="pizzaFlowActions.checkDeliveryArea(customer.zipCode)"
+            then="addCustomer" else="deliveryWarning"/>
+    </decision-state>
+    <view-state id="deliveryWarning" >
+        <transition on="accept" to="addCustomer" />
+        <transition on="cancel" to="cancel" />
+    </view-state>
+    <action-state id="addCustomer">
+        <evaluate expression="pizzaFlowActions.addCustomer(customer)"/>
+        <transition to="customerReady"/>
+    </action-state>
+<!--    取消的状态 是一个结束状态-->
+    <end-state id="cancel"/>
+<!--    顾客就绪也是结束状态 同时需要传递出一个参数customer-->
+    <end-state id="customerReady">
+        <output name="customer"/>
+    </end-state>
+    <global-transitions>
+        <transition on="cancel" to="cancel"/>
+    </global-transitions>
+</flow>

@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spitter</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/CSS/style.css}" />
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="page :: header"></div>
+<!--正文-->
+<div id="content">
+<!--    发布一个spittle -->
+    <div class="spittleForm">
+        <h1>Spit it out...</h1>
+<!--        这里name为 spittleForm-->
+        <form method="POST" name="spittleForm">
+            <input type="hidden" name="latitude" />
+            <input type="hidden" name="longitude" />
+            <textarea name="message" cols="80" rows="5"></textarea><br/>
+            <input type="submit" value="Add" />
+        </form>
+    </div>
+<!--    最近发布的spittle -->
+    <div class="listTitle">
+        <h1>Recent Spittles</h1>
+        <ul class="spittleList">
+<!--       $符合直接从model里面取出来，相当于从request.getAttribute-->
+<!--      ctx.getVariables().get（底层）    -->
+            <li th:each="spittle : ${spittleList}"
+                th:id="'spittle_' + ${spittle.id}">
+                <div class="spittleMessage" th:text="${spittle.message}">Spittle message</div>
+                <div>
+                    <span class="spittleTime" th:text="${spittle.time}">spittle timestamp</span>
+                    <span class="spittleLocation" th:text="'{' + ${spittle.latitude} + ', ' + ${spittle.longitude} + ')'">lat, long</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div id="footer" th:include="page :: copy"></div>
+</body>
+</html>

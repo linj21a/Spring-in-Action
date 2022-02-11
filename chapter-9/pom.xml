@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example</groupId>
+  <artifactId>SpringInAction2</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <name>SpringInAction2 Maven Webapp</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <spring.version>5.3.15</spring.version>
+  </properties>
+
+  <dependencies>
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+          <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.aspectj</groupId>
+          <artifactId>aspectjweaver</artifactId>
+          <version>1.8.12</version>
+        </dependency>
+        <!--AspectJ 开始-->
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-aspects</artifactId>
+          <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.aspectj</groupId>
+          <artifactId>aspectjrt</artifactId>
+          <version>1.9.6</version>
+        </dependency>
+        <dependency>
+          <groupId>org.aspectj</groupId>
+          <artifactId>aspectjtools</artifactId>
+          <version>1.9.5</version>
+        </dependency>
+        <!--    配置aop切面的包-->
+        <dependency>
+          <groupId>org.aspectj</groupId>
+          <artifactId>aspectjweaver</artifactId>
+          <version>1.9.0</version>
+        </dependency>
+        <dependency>
+          <groupId>aopalliance</groupId>
+          <artifactId>aopalliance</artifactId>
+          <version>1.0</version>
+       </dependency>
+        <dependency>
+          <groupId>cglib</groupId>
+          <artifactId>cglib</artifactId>
+          <version>3.3.0</version>
+        </dependency>
+        <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.12</version>
+          <scope>test</scope>
+        </dependency>
+        <!--    Spring 整合junit-->
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-test</artifactId>
+          <version>5.0.5.RELEASE</version>
+        </dependency>
+
+<!--      如果要使用Sprng LDAP认证需要导入：-->
+<!--      &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.ldap/spring-ldap-core &ndash;&gt;-->
+<!--      <dependency>-->
+<!--          <groupId>org.springframework.ldap</groupId>-->
+<!--          <artifactId>spring-ldap-core</artifactId>-->
+<!--          <version>2.3.5.RELEASE</version>-->
+<!--      </dependency>-->
+<!--      &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.security/spring-security-ldap &ndash;&gt;-->
+<!--      <dependency>-->
+<!--          <groupId>org.springframework.security</groupId>-->
+<!--          <artifactId>spring-security-ldap</artifactId>-->
+<!--          <version>5.0.15.RELEASE</version>-->
+<!--      </dependency>-->
+
+
+      <!--      导入mock -->
+      <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+      <dependency>
+          <groupId>org.mockito</groupId>
+          <artifactId>mockito-core</artifactId>
+          <version>2.23.4</version>
+          <scope>test</scope>
+      </dependency>
+        <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.13</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <!--    spring jdbc 包-->
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-jdbc</artifactId>
+          <version>5.3.9</version>
+        </dependency>
+        <!--    spring web-->
+<!--        <dependency>-->
+<!--          <groupId>org.springframework</groupId>-->
+<!--          <artifactId>spring-web</artifactId>-->
+<!--          <version>${spring.version}</version>-->
+<!--        </dependency>-->
+        <!--    spring webmvc 保护了web-->
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webmvc</artifactId>
+          <version>${spring.version}</version>
+        </dependency>
+<!--      servlet -->
+      <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>javax.servlet-api</artifactId>
+          <version>3.1.0</version>
+          <scope>provided</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-lang3</artifactId>
+          <version>3.4</version>
+      </dependency>
+<!--      jstl + taglib-->
+      <!--      加入jstl jsp标签库 taglib-->
+      <dependency>
+          <groupId>org.apache.taglibs</groupId>
+          <artifactId>taglibs-standard-spec</artifactId>
+          <version>1.2.5</version>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.taglibs</groupId>
+          <artifactId>taglibs-standard-impl</artifactId>
+          <version>1.2.5</version>
+      </dependency>
+      <!-- 添加jtl支持 -->
+      <!-- jstl1.2的版本中不	依赖standart.jar -->
+      <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
+          <version>1.2</version>
+      </dependency>
+
+<!--      单元测试 mockito-->
+      <dependency>
+          <groupId>org.mockito</groupId>
+          <artifactId>mockito-core</artifactId>
+          <version>2.23.4</version>
+          <scope>compile</scope>
+      </dependency>
+<!--      为了在注册表单上，给用户的输入进行安全校验，引入spring的java validation api-->
+<!--      java validation接口 -->
+      <dependency>
+          <groupId>javax.validation</groupId>
+          <artifactId>validation-api</artifactId>
+          <version>2.0.0.Final</version>
+      </dependency>
+    <!-- java validation 实现 -->
+      <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>6.0.11.Final</version>
+      </dependency>
+<!--      导入 Thymeleaf 布局引擎-->
+      <dependency>
+          <groupId>org.thymeleaf</groupId>
+          <artifactId>thymeleaf</artifactId>
+          <version>3.0.11.RELEASE</version>
+      </dependency>
+      <!-- 加入具体的实现 -->
+      <dependency>
+          <groupId>org.thymeleaf</groupId>
+          <artifactId>thymeleaf-spring5</artifactId>
+          <version>3.0.11.RELEASE</version>
+      </dependency>
+<!--      加入Thymeleaf的 Spring Security 的方言-->
+      <!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity4 -->
+      <dependency>
+          <groupId>org.thymeleaf.extras</groupId>
+          <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+          <version>3.0.2.RELEASE</version>
+      </dependency>
+
+      <!--加入Spring Security的四个包： core config必要 + web+ jsp库-->
+      <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+      <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-core</artifactId>
+          <version>5.5.3</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+      <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-web</artifactId>
+          <version>5.5.3</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+      <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-config</artifactId>
+          <version>5.5.3</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
+      <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-taglibs</artifactId>
+          <version>5.5.3</version>
+      </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>SpringInAction2</finalName>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.2.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>

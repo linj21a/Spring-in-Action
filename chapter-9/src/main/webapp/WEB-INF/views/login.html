@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spitter</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/CSS/style.css}"/>
+</head>
+<!--username 页面加载时获取焦点 -->
+<body onload='document.f.username.focus();'>
+<!--引入header 定义在page里面 -->
+<div id="header" th:include="page :: header"></div>
+<!-- 正文部分-->
+<div id="content">
+<!--    使用th:action 则自动添加csrf隐藏输入域 -->
+<!--    这里本来默认提交到/login 如果设置了 loginSuccessUrl需要修改为对应的路径-->
+    <form id='login_form' th:action='@{/}' method='POST'>
+        <table>
+            <tr><td>用户名:</td><td>
+                <input type='text' name='username' value='' /></td>
+            </tr>
+            <tr><td>密&nbsp;码:</td>
+                <td><input type='password' name='password'/></td>
+            </tr>
+<!--            记住我 单选框-->
+            <tr><td colspan='2'>
+                <input id="remember_me" name="remember-me" type="checkbox"/>
+                <label for="remember_me" class="inline">记住我</label></td>
+            </tr>
+<!--            提交按钮-->
+            <tr><td colspan='2'>
+                <input name="submit" type="submit" value="登录"/>
+<!--                <input th:href="@{/spitter/register}" type="button" value="注册">-->
+<!--                <a th:href="@{/spitter/register}" class="mybutton">注册</a>-->
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+<!--引入page定义的copy版权部分-->
+<div id="footer" th:include="page :: copy"></div>
+</body>
+</html>

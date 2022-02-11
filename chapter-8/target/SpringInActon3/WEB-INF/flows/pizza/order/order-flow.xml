@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+  http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+<!--    需要输入一个order实例 -->
+    <input name="order" required="true" />
+    <!-- 展示订单的视图状态  视图绑定到/WEB-INF/flows/pizza/order/showOrder.jsp  由id默认 -->
+    <view-state id="showOrder">
+<!--        当触发创建pizza则跳转到createPizza状态-->
+        <transition on="createPizza" to="createPizza" />
+<!--        当触发提交订单，完成订单创建 -->
+        <transition on="checkout" to="orderCreated" />
+<!--        当触发取消，则跳转到cancel状态-->
+        <transition on="cancel" to="cancel" />
+    </view-state>
+<!--创建pizza 也是一个视图状态
+视图绑定到/WEB-INF/flows/pizza/order/createPizza.jsp
+模型会获取到 流程作用域内的pizza实例 同时绑定到该视图里面创建pizza的表单 -->
+    <view-state id="createPizza" model="flowScope.pizza">
+<!--        使用on-entry来添加一个新的pizza对象到流程的作用域内-->
+        <on-entry>
+            <set name="flowScope.pizza"
+                 value="new org.yuyefanhua.pizza.domain.Pizza()" />
+            <evaluate result="viewScope.toppingsList"
+                      expression="T(org.yuyefanhua.pizza.domain.Topping).asList()" />
+        </on-entry>
+<!--        当触发添加pizza ，则跳到展示订单状态-->
+        <transition on="addPizza" to="showOrder">
+<!--            添加pizza完成时，触发 -->
+            <evaluate expression="order.addPizza(flowScope.pizza)" />
+        </transition>
+        <!--            当触发取消，则回到展示订单-->
+        <transition on="cancel" to="showOrder" />
+    </view-state>
+    <!-- 结束状态两个：取消 和 完成订单创建 -->
+    <end-state id="cancel" />
+    <end-state id="orderCreated" />
+</flow>

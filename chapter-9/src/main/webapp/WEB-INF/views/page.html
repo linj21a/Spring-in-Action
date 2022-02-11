@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+<!-- 头页面部分 th:fragment指定 header -->
+<div th:fragment="header">
+  <a th:href="@{/}">
+    <img th:src="@{/resources/images/spitter_logo_50.png}" border="0"  alt="#"/>
+  </a>
+  <a th:href="@{/signout}" >退出</a>
+
+<!--    如果开启了csrf需要设置post提交，否则两个都可以（get或者post）-->
+<!--      <form th:action="@{/signout}" method="post">-->
+<!--        <input type="submit" value="退出" style="margin: unset" />-->
+<!--      </form>-->
+
+<!--&lt;!&ndash;  点击就会退出remember me 状态 记得加上post方法&ndash;&gt;-->
+<!--  <form th:action="@{/signout}" method="post">-->
+<!--    <input type="submit" value="退出" style="margin: unset" />-->
+<!--  </form>-->
+
+</div>
+
+<div>Content goes here</div>
+<!-- 指定尾部部分 -->
+<div th:fragment="copy">Copyright &copy; Craig Walls</div>
+</body>
+
+</html>
