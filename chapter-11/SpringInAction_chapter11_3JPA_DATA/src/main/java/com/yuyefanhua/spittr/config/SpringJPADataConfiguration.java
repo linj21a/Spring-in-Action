@@ -61,6 +61,7 @@ public class SpringJPADataConfiguration {
         return databaseBuilder.build();
     }
 //    事务管理器：
+    //这里需要使用同一个实体管理工厂，否则如果是下面的则导致SpitterRepositoryImpl里面的EntityManager无法注入
     @Bean
     public JpaTransactionManager transactionManager(){
         return new JpaTransactionManager();
