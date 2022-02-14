@@ -1,0 +1,18 @@
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence">
+<!--    persistence-unit表示一个持久化的单元-->
+    <persistence-unit name="spitterPU"> <!-- 设置持久化单元的名字-->
+<!--        需要持久化的类 -->
+        <class>com.yuyefanhua.spittr.domain.Spittle</class>
+        <class>com.yuyefanhua.spittr.domain.Spittle</class>
+<!--        使用的是toplink  物件关连映射（object-relational mapping）套件（Package
+            是最早的ORM映射框架之一
+-->
+        <properties>
+<!--            配置数据源 驱动、使用的数据库url、用户名、密码-->
+            <property name="toplink.jdbc.driver" value="org.hsqldb.jdbcDriver" />
+            <property name="toplink.jdbc.url" value="jdbc:hsqldb:hsql://localhost/spitter/spitter" />
+            <property name="toplink.jdbc.user" value="sa" />
+            <property name="toplink.jdbc.password" value="" />
+        </properties>
+    </persistence-unit>
+</persistence>
